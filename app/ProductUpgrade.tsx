@@ -16,6 +16,7 @@ const products = [
     source:
       "https://www.herbalife.com/en-in/about-herbalife/press-room/press-releases/herbalife-india-launches-formula-1-dates-caramel-nutritional-shake",
     message: "Hi, I would like to know about Formula 1 and whether it suits my nutrition goal.",
+    fallback: "F1",
   },
   {
     name: "Liftoff®",
@@ -28,18 +29,20 @@ const products = [
     source:
       "https://www.herbalife.com/en-in/about-herbalife/press-room/press-releases/herbalife-india-launches-liftoff-zero-sugar-energy-drink",
     message: "Hi, I would like to know more about Liftoff and its usage guidance.",
+    fallback: "LIFT",
   },
   {
-    name: "vritilife Outer Nutrition",
-    kicker: "Skin & body care · Everyday routine",
+    name: "HN‑Skin Booster",
+    kicker: "Skin health · Collagen + vitamins",
     image:
-      "https://www.herbalife.com/dmassets/market-reusable-assets/emea/india/images/press-release-images/vritilife-outer-nutrition-range-launch.png?dpr=off&qlt=85&ts=1756184835330",
+      "https://cf-images.us-east-1.prod.boltdns.net/v1/jit/4108187562001/e8e6dab2-e8a7-44ed-9171-17c741d1e1e2/main/1280x720/10s442ms/match/image.jpg",
     description:
-      "The vritilife skincare range includes Facial Cleanser, Facial Toner, Facial Serum and Moisturizer. Herbalife India describes the range as Ayurveda-inspired, combining botanicals with modern formulation for everyday skincare.",
-    highlights: ["Cleanser · Toner · Serum · Moisturizer", "Ayurveda-inspired skincare", "Everyday self-care, not medical treatment"],
+      "HN‑Skin Booster is an orange-flavoured nutraceutical drink mix formulated with hydrolyzed fish collagen and selected vitamins. Herbalife India product education highlights support for skin hydration, elasticity and overall skin health. It is not a medicine and should be used according to the current India label.",
+    highlights: ["Hydrolyzed fish collagen", "Vitamins C, B2, B6, niacin & biotin", "Skin hydration & elasticity support"],
     source:
-      "https://www.herbalife.com/en-in/about-herbalife/press-room/press-releases/herbalife-india-forays-into-skincare-segment-with-vritilife-outer-nutrition-range",
-    message: "Hi, I would like to know about the vritilife skincare routine and available products.",
+      "https://assets.herbalifenutrition.com/content/dam/regional/apac/en_in/consumable_content/product-catalog-assets/images/2023/08-Aug/HNSkin%20Booster.pdf",
+    message: "Hi, I would like to know about HN-Skin Booster, its benefits and availability at Mahsoom's Lifestyle Centre.",
+    fallback: "HN",
   },
 ];
 
@@ -66,8 +69,8 @@ const ranges = [
   },
   {
     number: "05",
-    title: "Skin & Body Care",
-    text: "A simple skincare journey centred on cleansing, toning, serum care and moisturising, with consultation before choosing a routine.",
+    title: "Skin Health",
+    text: "HN‑Skin Booster is presented as the centre's main skin-health awareness product in this preview, with collagen and vitamin support explained from the current India label. Confirm availability before purchase.",
   },
 ];
 
@@ -148,7 +151,7 @@ export default function ProductUpgrade() {
                 }}
               />
               <div className="pu-fallback" aria-hidden="true">
-                <b>{index === 0 ? "F1" : index === 1 ? "LIFT" : "V"}</b>
+                <b>{product.fallback}</b>
                 <small>PRODUCT REFERENCE</small>
               </div>
             </div>
@@ -186,7 +189,7 @@ export default function ProductUpgrade() {
       <div className="pu-note">
         <b>CLIENT PREVIEW / ASSET NOTE</b>
         <p>
-          Herbalife and vritilife product names, trademarks and official product imagery belong to their respective owner. These official-source images are included as reference visuals for the client preview. Before final public marketing, use the authorised marketing assets supplied to the client/Herbalife Associate. Product information should always follow the current India label; products are not presented here as diagnosing, treating, preventing or curing disease. Individual results vary.
+          Herbalife product names, trademarks and official product imagery belong to their respective owner. These official-source images are included as reference visuals for the client preview. Before final public marketing, use authorised marketing assets supplied to the client/Herbalife Associate. Product information should always follow the current India label; products are not presented here as diagnosing, treating, preventing or curing disease. Individual results vary.
         </p>
       </div>
     </section>
