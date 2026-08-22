@@ -19,17 +19,51 @@ export default function SkinHealthUpgrade() {
     if (oldSkin) oldSkin.style.display = "none";
 
     const section = sectionRef.current;
-    const productSection = document.querySelector<HTMLElement>(".product-section");
-    const productUpgrade = document.querySelector<HTMLElement>("#products");
-    const anchor = productUpgrade || productSection;
-    if (section && anchor?.parentElement && section.nextElementSibling !== anchor) {
-      anchor.parentElement.insertBefore(section, anchor);
+    const process = document.querySelector<HTMLElement>(".process-section");
+    if (section && process?.parentElement) {
+      process.parentElement.insertBefore(section, process);
     }
     if (section) section.style.visibility = "visible";
 
     const navButtons = Array.from(document.querySelectorAll<HTMLButtonElement>(".nav-links button"));
     const skinButton = navButtons.find((button) => button.textContent?.trim() === "Skin Care");
-    if (skinButton) skinButton.textContent = "Skin Health";
+    if (skinButton) {
+      skinButton.textContent = "Skin Health";
+      skinButton.onclick = () => section?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    const heroNotes = Array.from(document.querySelectorAll<HTMLElement>(".hero-notes span"));
+    const heroSkin = heroNotes.find((item) => item.textContent?.trim() === "Skin care");
+    if (heroSkin) heroSkin.textContent = "Skin health";
+
+    const programCards = Array.from(document.querySelectorAll<HTMLElement>(".program-card"));
+    const skinProgram = programCards[3];
+    if (skinProgram) {
+      const tag = skinProgram.querySelector<HTMLElement>(".program-top small");
+      const title = skinProgram.querySelector<HTMLElement>("h3");
+      const text = skinProgram.querySelector<HTMLElement>("p");
+      if (tag) tag.textContent = "Collagen & vitamin support";
+      if (title) title.textContent = "Skin Health";
+      if (text) text.textContent = "HN‑Skin Booster awareness built around collagen, selected vitamins, current label guidance and a simple daily routine.";
+    }
+
+    const faqDetails = Array.from(document.querySelectorAll<HTMLDetailsElement>(".faq-list details"));
+    const skinFaq = faqDetails.find((item) => item.querySelector("summary")?.textContent?.includes("skin-care"));
+    if (skinFaq) {
+      const summary = skinFaq.querySelector<HTMLElement>("summary");
+      const answer = skinFaq.querySelector<HTMLElement>("p");
+      if (summary) summary.childNodes.forEach((node) => {
+        if (node.nodeType === Node.TEXT_NODE && node.textContent?.includes("skin-care")) node.textContent = "Do you offer skin-health product guidance?";
+      });
+      if (answer) answer.textContent = "Yes. The preview now explains HN‑Skin Booster, its collagen-and-vitamin formulation, current label directions and how to ask the centre about availability and suitability.";
+    }
+
+    const goalOptions = Array.from(document.querySelectorAll<HTMLOptionElement>('select[name="goal"] option'));
+    const skinOption = goalOptions.find((option) => option.textContent?.includes("Skin"));
+    if (skinOption) {
+      skinOption.textContent = "Skin health / HN-Skin Booster";
+      skinOption.value = "Skin health / HN-Skin Booster";
+    }
 
     const headerImage = document.querySelector<HTMLImageElement>(".brand img");
     if (headerImage) {
@@ -49,7 +83,7 @@ export default function SkinHealthUpgrade() {
         <span className="shu-eyebrow">03 · SKIN HEALTH · FROM WITHIN</span>
         <h2>Nourish from within.<br /><em>Support skin health.</em></h2>
         <p className="shu-lede">
-          For Mahsoom&apos;s skin-health story, HN‑Skin Booster is a better fit than showing empty cleanser and serum placeholders. It is a nutraceutical drink mix built around hydrolyzed fish collagen and selected vitamins, with current Herbalife India material positioning it to support skin hydration, elasticity and overall skin health.
+          HN‑Skin Booster is the main skin-health product highlighted in this preview. It is a nutraceutical drink mix built around hydrolyzed fish collagen and selected vitamins, with current Herbalife India material positioning it to support skin hydration, elasticity and overall skin health.
         </p>
         <div className="shu-actions">
           <a className="shu-primary" href={wa("Hi, I would like to know about HN-Skin Booster, its benefits and availability at Mahsoom's Lifestyle Centre.")} target="_blank" rel="noreferrer">Ask about HN‑Skin Booster ↗</a>
