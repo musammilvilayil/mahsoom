@@ -3,7 +3,11 @@
 import Image from "next/image";
 import { FormEvent, useMemo, useState } from "react";
 
-const WHATSAPP_NUMBER = ""; // Add country code + number before launch, e.g. 919876543210
+const WHATSAPP_NUMBER = "919074677303";
+const PHONE_DISPLAY = "+91 90746 77303";
+const LOCATION = "Perumpuzha, Kollam, Kerala";
+const MAP_URL = "https://www.google.com/maps/search/?api=1&query=Perumpuzha%2C%20Kollam%2C%20Kerala";
+const INSTAGRAM_URL = "https://www.instagram.com/mahsoom__the_life_changer";
 
 const programs = [
   {
@@ -47,40 +51,74 @@ const faqs = [
   ["Can I join only for nutrition guidance?", "Yes. The consultation can focus on nutrition habits, healthy-weight goals, an active lifestyle, skin self-care or a combination."],
 ];
 
+const demoTransformations = [
+  {
+    goal: "Healthy-weight journey",
+    beforeImage: "https://images.pexels.com/photos/5000228/pexels-photo-5000228.jpeg?auto=compress&cs=tinysrgb&w=900",
+    afterImage: "https://images.pexels.com/photos/5000217/pexels-photo-5000217.jpeg?auto=compress&cs=tinysrgb&w=900",
+    source: "Pexels · Ketut Subiyanto",
+  },
+  {
+    goal: "Active lifestyle journey",
+    beforeImage: "https://images.pexels.com/photos/28246590/pexels-photo-28246590.jpeg?auto=compress&cs=tinysrgb&w=900",
+    afterImage: "https://images.pexels.com/photos/13822303/pexels-photo-13822303.jpeg?auto=compress&cs=tinysrgb&w=900",
+    source: "Pexels demo model imagery",
+  },
+  {
+    goal: "Skin self-care journey",
+    beforeImage: "https://images.pexels.com/photos/8989957/pexels-photo-8989957.jpeg?auto=compress&cs=tinysrgb&w=900",
+    afterImage: "https://images.pexels.com/photos/8990301/pexels-photo-8990301.jpeg?auto=compress&cs=tinysrgb&w=900",
+    source: "Pexels · Alena Darmel",
+  },
+];
+
 function scrollToId(id: string) {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 function openWhatsApp(message = "Hi, I would like to know more about Mahsoom's Lifestyle Centre.") {
-  if (!WHATSAPP_NUMBER) {
-    scrollToId("contact");
-    return;
-  }
   window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
 }
 
-function TransformationCard({ index, goal }: { index: number; goal: string }) {
+function TransformationCard({
+  index,
+  goal,
+  beforeImage,
+  afterImage,
+  source,
+}: {
+  index: number;
+  goal: string;
+  beforeImage: string;
+  afterImage: string;
+  source: string;
+}) {
   return (
     <article className="transformation-card">
-      <div className="compare-stage" aria-label={`Transformation layout ${index}`}>
-        <div className="compare-side before-side">
+      <div className="compare-stage" aria-label={`Demo transformation layout ${index}`}>
+        <div
+          className="compare-side before-side"
+          style={{ backgroundImage: `linear-gradient(180deg, rgba(10,13,10,.02), rgba(10,13,10,.54)), url(${beforeImage})`, backgroundSize: "cover", backgroundPosition: "center" }}
+        >
           <span className="compare-label">BEFORE</span>
-          <div className="person-silhouette" aria-hidden="true"><span /></div>
-          <p>Real member photo</p>
+          <p>DEMO MODEL · PREVIEW ONLY</p>
         </div>
         <div className="compare-divider"><span>→</span></div>
-        <div className="compare-side after-side">
+        <div
+          className="compare-side after-side"
+          style={{ backgroundImage: `linear-gradient(180deg, rgba(10,13,10,.02), rgba(10,13,10,.42)), url(${afterImage})`, backgroundSize: "cover", backgroundPosition: "center" }}
+        >
           <span className="compare-label">AFTER</span>
-          <div className="person-silhouette after" aria-hidden="true"><span /></div>
-          <p>Real member photo</p>
+          <p>DEMO MODEL · PREVIEW ONLY</p>
         </div>
       </div>
       <div className="transformation-copy">
         <div>
-          <span className="eyebrow">REAL STORY SLOT {String(index).padStart(2, "0")}</span>
+          <span className="eyebrow">CLIENT PREVIEW {String(index).padStart(2, "0")}</span>
           <h3>{goal}</h3>
         </div>
-        <p>Replace this demo frame with a consented member journey, timeframe and verified outcome before publishing.</p>
+        <p>Stock/model imagery is being used only to preview the final before/after layout. Replace both images with one real, consented member journey and verified outcome before public launch.</p>
+        <small style={{ color: "#7a7e78", fontSize: 10 }}>{source}</small>
       </div>
     </article>
   );
@@ -98,8 +136,8 @@ export default function Home() {
     const goal = String(form.get("goal") || "");
     const time = String(form.get("time") || "");
     const phone = String(form.get("phone") || "");
-    const message = `Hi, I'm ${name}. My goal is ${goal}. Preferred time: ${time}. Phone: ${phone}. I would like a consultation.`;
-    if (WHATSAPP_NUMBER) openWhatsApp(message);
+    const message = `Hi, I'm ${name}. My goal is ${goal}. Preferred time: ${time}. Phone: ${phone}. I would like a consultation at Mahsoom's Lifestyle Centre.`;
+    openWhatsApp(message);
     setSubmitted(true);
   }
 
@@ -120,7 +158,7 @@ export default function Home() {
             <button key={id} onClick={() => { scrollToId(id); setMenuOpen(false); }}>{label}</button>
           ))}
         </nav>
-        <button className="header-cta" onClick={() => scrollToId("contact")}>Book consultation</button>
+        <button className="header-cta" onClick={() => openWhatsApp()}>Chat on WhatsApp</button>
         <button className="menu-toggle" aria-label="Toggle menu" aria-expanded={menuOpen} onClick={() => setMenuOpen((v) => !v)}>
           <span /><span />
         </button>
@@ -129,12 +167,12 @@ export default function Home() {
       <section className="hero" id="home">
         <div className="hero-grain" />
         <div className="hero-copy">
-          <span className="eyebrow light">MAHSOOM&apos;S LIFESTYLE CENTRE · KERALA</span>
+          <span className="eyebrow light">MAHSOOM&apos;S LIFESTYLE CENTRE · PERUMPUZHA · KOLLAM</span>
           <h1>Change that <em>shows.</em><br />Habits that <span>stay.</span></h1>
           <p className="hero-lede">Personalised nutrition guidance, healthy-weight support, an active lifestyle community and a simple skin self-care routine — built around you.</p>
           <div className="hero-actions">
-            <button className="primary-btn" onClick={() => scrollToId("results")}>See transformation format <b>↘</b></button>
-            <button className="text-btn" onClick={() => scrollToId("contact")}>Start with a consultation <span>→</span></button>
+            <button className="primary-btn" onClick={() => scrollToId("results")}>See transformations <b>↘</b></button>
+            <button className="text-btn" onClick={() => openWhatsApp()}>Chat on WhatsApp <span>→</span></button>
           </div>
           <div className="hero-notes">
             <span>Nutrition</span><i /> <span>Healthy weight</span><i /> <span>Fitness</span><i /> <span>Skin care</span>
@@ -151,20 +189,18 @@ export default function Home() {
 
       <section className="statement-strip">
         <p>THE HERITAGE HUB OF THE CHANGED PEOPLE</p>
-        <span>•</span><p>PERSONALISED WELLNESS GUIDANCE</p><span>•</span><p>REAL PEOPLE · REAL ROUTINES</p>
+        <span>•</span><p>PERSONALISED WELLNESS GUIDANCE</p><span>•</span><p>PERUMPUZHA · KOLLAM</p>
       </section>
 
       <section className="section results-section" id="results">
         <div className="section-heading split-heading">
           <div><span className="eyebrow">01 · TRANSFORMATIONS</span><h2>Let the journey<br /><em>speak first.</em></h2></div>
-          <div className="heading-note"><span>BEFORE → AFTER</span><p>This is the website&apos;s main conversion section. It is ready for real member photographs, short stories and verified measurements once consented assets are provided.</p></div>
+          <div className="heading-note"><span>BEFORE → AFTER</span><p>This preview uses clearly labelled model imagery so the client can see the final transformation format. Real consented member photos and verified measurements will replace it before public launch.</p></div>
         </div>
         <div className="transformation-grid">
-          <TransformationCard index={1} goal="Healthy-weight journey" />
-          <TransformationCard index={2} goal="Active lifestyle journey" />
-          <TransformationCard index={3} goal="Skin self-care journey" />
+          {demoTransformations.map((item, i) => <TransformationCard key={item.goal} index={i + 1} {...item} />)}
         </div>
-        <div className="compliance-note"><strong>Publishing rule</strong><p>No fabricated results, no guaranteed timelines. Every transformation should use real consented photos and an accurate description. Individual results vary.</p></div>
+        <div className="compliance-note"><strong>Demo preview</strong><p>The photos above are stock/model imagery and are not Mahsoom&apos;s client results. Final published transformations must use consented photos, accurate descriptions and the note that individual results vary.</p></div>
       </section>
 
       <section className="section programs-section" id="programs">
@@ -174,7 +210,7 @@ export default function Home() {
             <article key={item.title} className="program-card">
               <div className="program-top"><span>{item.icon}</span><small>{item.tag}</small></div>
               <h3>{item.title}</h3><p>{item.text}</p>
-              <button onClick={() => scrollToId("contact")}>Talk about this goal <span>↗</span></button>
+              <button onClick={() => openWhatsApp(`Hi, I would like to know more about the ${item.title} programme at Mahsoom's Lifestyle Centre.`)}>Talk about this goal <span>↗</span></button>
             </article>
           ))}
         </div>
@@ -224,24 +260,33 @@ export default function Home() {
       </section>
 
       <section className="contact-section" id="contact">
-        <div className="contact-copy"><span className="eyebrow light">START YOUR JOURNEY</span><h2>Tell us what<br />you want to change.</h2><p>Share your goal and preferred time. Once the business WhatsApp number is added, this form will open a pre-filled WhatsApp enquiry.</p><div className="contact-tags"><span>No pressure</span><span>Goal-first conversation</span><span>Mobile friendly</span></div></div>
+        <div className="contact-copy">
+          <span className="eyebrow light">START YOUR JOURNEY</span>
+          <h2>Tell us what<br />you want to change.</h2>
+          <p>Visit Mahsoom&apos;s Lifestyle Centre at {LOCATION}, or start with a quick WhatsApp conversation.</p>
+          <div className="contact-tags">
+            <a href={`tel:+${WHATSAPP_NUMBER}`} style={{ color: "inherit", textDecoration: "none" }}>{PHONE_DISPLAY}</a>
+            <a href={MAP_URL} target="_blank" rel="noreferrer" style={{ color: "inherit", textDecoration: "none" }}>Perumpuzha, Kollam ↗</a>
+            <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer" style={{ color: "inherit", textDecoration: "none" }}>Instagram ↗</a>
+          </div>
+        </div>
         <form onSubmit={handleSubmit} className="lead-form">
           <label>Name<input name="name" placeholder="Your name" required /></label>
           <label>Phone<input name="phone" type="tel" inputMode="tel" placeholder="Your number" required /></label>
           <label>Primary goal<select name="goal" defaultValue="Healthy weight"><option>Healthy weight</option><option>Daily nutrition</option><option>Fitness / active lifestyle</option><option>Skin & self-care</option><option>Not sure yet</option></select></label>
           <label>Preferred time<select name="time" defaultValue="Morning"><option>Morning</option><option>Afternoon</option><option>Evening</option></select></label>
-          <button className="primary-btn form-btn" type="submit">Prepare WhatsApp enquiry <b>↗</b></button>
-          {submitted && !WHATSAPP_NUMBER && <p className="form-status">✓ Form flow is ready. Add the club&apos;s WhatsApp number in <code>app/page.tsx</code> before launch.</p>}
+          <button className="primary-btn form-btn" type="submit">Continue on WhatsApp <b>↗</b></button>
+          {submitted && <p className="form-status">✓ WhatsApp enquiry prepared.</p>}
         </form>
       </section>
 
       <footer>
         <div className="footer-brand"><Image src="/brand-logo.webp" alt="Mahsoom's Lifestyle Centre" width={360} height={148} /><p>The Heritage Hub of the Changed People</p></div>
-        <div className="footer-links"><button onClick={() => scrollToId("results")}>Transformations</button><button onClick={() => scrollToId("programs")}>Programs</button><button onClick={() => scrollToId("skin")}>Skin care</button><button onClick={() => scrollToId("contact")}>Contact</button></div>
-        <div className="footer-legal"><p>Independent lifestyle-centre website. Herbalife and Vritilife names/trademarks belong to their respective owner. Product information should follow current India labels and official guidance. This website does not provide medical diagnosis or treatment. Individual results vary.</p><span>© {year} Mahsoom&apos;s Lifestyle Centre.</span></div>
+        <div className="footer-links"><button onClick={() => scrollToId("results")}>Transformations</button><button onClick={() => scrollToId("programs")}>Programs</button><button onClick={() => scrollToId("skin")}>Skin care</button><button onClick={() => openWhatsApp()}>WhatsApp</button></div>
+        <div className="footer-legal"><p>Mahsoom&apos;s Lifestyle Centre · Perumpuzha, Kollam, Kerala · {PHONE_DISPLAY}. Herbalife and Vritilife names/trademarks belong to their respective owner. Product information should follow current India labels and official guidance. This website does not provide medical diagnosis or treatment. Individual results vary. Demo transformation images are stock/model imagery and are not client results.</p><span>© {year} Mahsoom&apos;s Lifestyle Centre.</span></div>
       </footer>
 
-      <div className="mobile-bar"><button onClick={() => scrollToId("results")}>See Results</button><button onClick={() => scrollToId("contact")}>Book Consultation</button></div>
+      <div className="mobile-bar"><button onClick={() => scrollToId("results")}>See Results</button><button onClick={() => openWhatsApp()}>WhatsApp</button></div>
     </main>
   );
 }
