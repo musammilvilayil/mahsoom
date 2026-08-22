@@ -121,7 +121,7 @@ export default function ProductUpgrade() {
 
       <div className="pu-head">
         <div>
-          <span className="pu-eyebrow">05 · PRODUCT AWARENESS</span>
+          <span className="pu-eyebrow">04 · PRODUCT AWARENESS</span>
           <h2>Know the range.<br /><em>Choose by goal.</em></h2>
         </div>
         <div className="pu-intro">
