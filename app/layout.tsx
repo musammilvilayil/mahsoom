@@ -2,19 +2,21 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Mahsoom's Lifestyle Centre | Nutrition, Fitness & Self-Care",
+  title: "Mahsoom's Lifestyle Centre | Nutrition, Fitness & Skin Care in Perumpuzha, Kollam",
   description:
-    "Personalised nutrition, healthy-weight guidance, active lifestyle support and skin self-care at Mahsoom's Lifestyle Centre.",
+    "Mahsoom's Lifestyle Centre in Perumpuzha, Kollam offers personalised nutrition guidance, healthy-weight support, active lifestyle coaching and skin self-care guidance. WhatsApp +91 90746 77303.",
   keywords: [
-    "nutrition club Kerala",
-    "healthy weight coaching Kerala",
-    "fitness lifestyle centre",
-    "Herbalife nutrition guidance",
-    "skin care Kerala",
+    "nutrition club Perumpuzha",
+    "nutrition club Kollam",
+    "healthy weight coaching Kollam",
+    "fitness lifestyle centre Kollam",
+    "Herbalife nutrition guidance Kollam",
+    "skin care Perumpuzha",
+    "Vritilife skin care Kollam",
   ],
   openGraph: {
-    title: "Mahsoom's Lifestyle Centre",
-    description: "The Heritage Hub of the Changed People.",
+    title: "Mahsoom's Lifestyle Centre | Perumpuzha, Kollam",
+    description: "The Heritage Hub of the Changed People — nutrition, healthy-weight, active lifestyle and skin self-care guidance.",
     type: "website",
   },
 };
